@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOKY Cabling Solutions - Kentucky's Premier IT Service Provider</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            /* TIA-568B color palette */
+            --primary: #ff8c00;    /* Orange */
+            --primary-dark: #cc7000; /* Darker Orange */
+            --secondary: #0066cc;   /* Blue */
+            --secondary-dark: #004d99; /* Darker Blue */
+            --accent1: #008000;    /* Green */
+            --accent2: #4d3300;    /* Brown */
+            --light: #fff5e6;      /* Light Orange tint */
+            --gray: #404040;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .nav {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            height: 50px;
+            width: 200px;
+        }
+
+        .logo-container svg {
+            height: 100%;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(255,140,0,0.9), rgba(204,112,0,0.9)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            color: white;
+            padding: 8rem 2rem;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-dark);
+        }
+
+        .about-section {
+            padding: 4rem 2rem;
+            background: var(--light);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: block;
+            object-fit: cover;
+        }
+
+        .services {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .certifications {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .cert-badge {
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            position: relative;
+            cursor: help;
+        }
+
+        .cert-badge::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem;
+            background: var(--gray);
+            color: white;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            width: max-content;
+            max-width: 400px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            white-space: pre-line;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            line-height: 1.4;
+        }
+
+        .cert-badge::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--gray);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cert-badge:hover::before,
+        .cert-badge:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: 130%;
+        }
+
+        .languages {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .language-badge {
+            background: var(--accent1);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .contact {
+            background: var(--light);
+            padding: 4rem 2rem;
+        }
+
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo-container">
+                <svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M40,60 C60,60 70,30 90,30 C110,30 120,90 140,90 C160,90 170,30 190,30 C210,30 220,90 240,90" 
+                          stroke="#ff8c00" 
+                          stroke-width="8" 
+                          fill="none" 
+                          stroke-linecap="round"/>
+                    <rect x="20" y="45" width="30" height="30" fill="#1c1c1c" rx="2"/>
+                    <rect x="25" y="50" width="20" height="20" fill="#404040"/>
+                    <rect x="28" y="53" width="2" height="14" fill="#fff5e6"/>
+                    <rect x="31" y="53" width="2" height="14" fill="#ff8c00"/>
+                    <rect x="34" y="53" width="2" height="14" fill="#e6ffe6"/>
+                    <rect x="37" y="53" width="2" height="14" fill="#0066cc"/>
+                    <rect x="40" y="53" width="2" height="14" fill="#e6f2ff"/>
+                    <rect x="43" y="53" width="2" height="14" fill="#008000"/>
+                    <text x="260" y="45" 
+                          font-family="Arial" 
+                          font-size="32" 
+                          font-weight="bold" 
+                          fill="#ff8c00">SOKY</text>
+                    <text x="260" y="75" 
+                          font-family="Arial" 
+                          font-size="20" 
+                          fill="#0066cc">CABLING SOLUTIONS</text>
+                    <rect x="240" y="75" width="30" height="30" fill="#1c1c1c" rx="2"/>
+                    <rect x="245" y="80" width="20" height="20" fill="#404040"/>
+                </svg>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Southern Kentucky's Premier IT Service Provider</h1>
+        <p>Professional structured cabling solutions and IT services for businesses across the Commonwealth</p>
+        <a href="#contact" class="btn">Get Started</a>
+    </section>
+
+    <section class="about-section" id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <div>
+                <h3>Our Story</h3>
+                <p>Founded in 2020, SOKY Cabling Solutions has emerged as Southern Kentucky's leading provider of comprehensive IT infrastructure and structured cabling solutions. Our commitment to excellence and technical expertise has made us the trusted choice for businesses across the Commonwealth.</p>
+                
+                <p>We specialize in designing, implementing, and maintaining modern network infrastructure that meets the evolving needs of today's businesses. Our team's extensive certifications and ongoing training ensure we stay at the forefront of industry standards and best practices.</p>
+
+                <div class="image-grid">
+                    <img src="/images/network_install.webp" alt="Network Installation" class="service-image">
+                    <img src="/images/server_room.jpg" alt="Server Room" class="service-image">
+                    <img src="/images/fiber_install.jpg" alt="Fiber Optic Installation" class="service-image">
+                </div>
+            </div>
+
+            <div>
+                <h3>Meet Our Owner</h3>
+                <img src="/images/owner.png" alt="Thomas Helms" class="profile-image">
+                <h4>Thomas Helms</h4>
+                <p>A Western Kentucky University graduate, Thomas brings a unique blend of technical expertise and business acumen to SOKY Cabling Solutions. His diverse educational background includes:</p>
+                <ul>
+                    <li>BS in Entrepreneurship - Providing the business foundation to understand and meet client needs</li>
+                    <li>BA in German - Enabling international business communications and global perspective</li>
+                    <li>Minor in Computer Information Systems - Technical foundation in IT infrastructure</li>
+                    <li>Minor in Photojournalism - Enhanced visual documentation and project planning skills</li>
+                </ul>
+                
+                <h4>Professional Certifications</h4>
+                <div class="certifications">
+                    <span class="cert-badge" data-tooltip="CompTIA A+ is the industry standard for establishing a career in IT. This certification validates:
+
+• Hardware component installation and configuration
+• Operating system installation and configuration
+• Network connectivity and mobile device management
+• Basic cybersecurity concepts and threats
+• Hardware and software troubleshooting methodology
+• Professional communication and documentation
+• Cloud computing and virtualization basics
+• Operating system administration and maintenance
+• IT infrastructure and support protocols">CompTIA A+</span>
+                    
+                    <span class="cert-badge" data-tooltip="CompTIA Network+ certification demonstrates expert knowledge in:
+
+• Network architecture design and implementation
+• Network protocols and OSI model implementation
+• Physical network components and cabling standards
+• Wireless network design and security
+• Network security and access control
+• Cloud computing and virtualization
+• Advanced troubleshooting methodologies
+• Network performance monitoring and optimization
+• Disaster recovery and business continuity
+• Quality of Service (QoS) management">CompTIA Network+</span>
+                    
+                    <span class="cert-badge" data-tooltip="CompTIA Security+ establishes core cybersecurity knowledge including:
+
+• Network security and architecture
+• Threat detection and vulnerability assessment
+• Identity and access management (IAM)
+• Public Key Infrastructure (PKI) and encryption
+• Security protocols and frameworks
+• Incident response and forensics
+• Risk management and mitigation
+• Application and data security
+• Cloud and virtualization security
+• Compliance and operational security">CompTIA Security+</span>
+                    
+                    <span class="cert-badge" data-tooltip="Microsoft Certified Solutions Expert (MCSE) certification validates advanced expertise in:
+
+• Windows Server infrastructure
+• Cloud platform implementation
+• Enterprise-scale virtualization
+• Identity and security management
+• Advanced networking services
+• High availability solutions
+• Disaster recovery planning
+• System Center configuration
+• PowerShell automation
+• Azure integration and management">Microsoft MCSE</span>
+                    
+                    <span class="cert-badge" data-tooltip="BICSI Registered Communications Distribution Designer (RCDD) is the global standard for ICT design professionals. This prestigious certification covers:
+
+• Structured cabling system design
+• Telecommunications spaces and pathways
+• Backbone and horizontal distribution
+• Fiber optic systems and testing
+• Electromagnetic compatibility
+• Data center design and implementation
+• Healthcare facility infrastructure
+• Educational facility design
+• Building automation systems
+• Audio/video system integration
+• Sustainable design">BICSI RCDD</span>
+                
+</div>
+
+                <h4>Languages</h4>
+                <div class="languages">
+                    <span class="language-badge">English (Native)</span>
+                    <span class="language-badge">German (Fluent)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-network-wired"></i>
+                <h3>Structured Cabling</h3>
+                <p>Professional installation and certification of:</p>
+                <ul>
+                    <li>Cat5e/Cat6/Cat6A cabling systems</li>
+                    <li>Fiber optic backbone and distribution</li>
+                    <li>Data center infrastructure</li>
+                    <li>Cable management and labeling</li>
+                    <li>Testing and certification to TIA standards</li>
+                    <li>Documentation and as-built drawings</li>
+                </ul>
+                <img src="/images/structured_cabling.jpg" alt="Structured Cabling" class="service-image">
+            </div>
+            <div class="service-card">
+                <i class="fas fa-server"></i>
+                <h3>Network Design</h3>
+                <p>Comprehensive network solutions including:</p>
+                <ul>
+                    <li>Network architecture planning</li>
+                    <li>Switching and routing configuration</li>
+                    <li>Wireless network design and implementation</li>
+                    <li>Performance optimization and monitoring</li>
+                    <li>Scalability and growth planning</li>
+                    <li>Network security implementation</li>
+                </ul>
+                <img src="/images/network_design.png" alt="Network Design" class="service-image">
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tools"></i>
+                <h3>IT Infrastructure</h3>
+                <p>Full-service IT support including:</p>
+                <ul>
+                    <li>Server deployment and maintenance</li>
+                    <li>Network security implementation</li>
+                    <li>24/7 monitoring and support</li>
+                    <li>Backup and disaster recovery</li>
+                    <li>Cloud integration services</li>
+                    <li>Virtualization solutions</li>
+                </ul>
+                <img src="/images/IT_infrastructure.jpeg" alt="IT Infrastructure" class="service-image">
+            </div>
+            <div class="service-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Security Systems</h3>
+                <p>Comprehensive security solutions:</p>
+                <ul>
+                    <li>IP camera systems</li>
+                    <li>Access control systems</li>
+                    <li>Video surveillance and monitoring</li>
+                    <li>Intrusion detection systems</li>
+                    <li>Remote monitoring solutions</li>
+                    <li>Integration with existing systems</li>
+                </ul>
+                <img src="/images/security_systems.jpg" alt="Security Systems" class="service-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+1 (270) 991-9898</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@henet.me</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <p>24/7 Emergency Service Available</p>
+                </div>
+            </div>
+            <div class="contact-info">
+                <h3>Hours of Operation</h3>
+                <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                <p>Emergency Support Available 24/7</p>
+                <p class="emergency-note">For after-hours emergencies, please call our main number for immediate assistance.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 SOKY Cabling Solutions. All rights reserved.</p>
+    </footer>
+</body>
+</html>
